@@ -1,0 +1,24 @@
+{
+  "name": "ufcstatscraper",
+  "version": "1.0.0",
+  "description": "ufc stat scraper",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/letsfighting/ufcstatscraper.git"
+  },
+  "keywords": [
+    "ufc",
+    "stat",
+    "scraper"
+  ],
+  "author": "letsfighting",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/letsfighting/ufcstatscraper/issues"
+  },
+  "homepage": "https://github.com/letsfighting/ufcstatscraper#readme"
+}
