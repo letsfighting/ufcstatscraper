@@ -9,6 +9,8 @@ soup = BeautifulSoup(page.content, "html.parser")
 data = []
 eventlinks = []
 eventnames = []
+eventdata = []
+
 fightlinks = []
 
 
@@ -23,9 +25,12 @@ for link in soup.find_all('a'):
     eventlinks.append((match.group("url")))
     eventnames.append(text)
 
+for x in range(0, len(eventlinks)):
+  event = {'_id': len(eventlinks)-x, 'name': eventnames[x], 'url': eventlinks[x]}
+  eventdata.append(event)
 
 
-print(eventnames)
+print(eventdata)
 
 # for event in eventlinks:
 #   eventpage = requests.get(event)
