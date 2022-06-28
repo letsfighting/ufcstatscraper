@@ -32,4 +32,4 @@ for event in eventlinks:
       fightlinks.append((match.group("url")))
 
 
-print(fightlinks)
+# print(fightlinks)
