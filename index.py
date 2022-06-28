@@ -1,6 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
 import re
+import pymongoarrow as pma
+from pymongoarrow.monkey import patch_all
+from pymongo import MongoClient
+
+patch_all()
 
 URL = "http://ufcstats.com/statistics/events/completed?page=all"
 page = requests.get(URL)
@@ -31,6 +36,13 @@ for x in range(0, len(eventlinks)):
 
 
 print(eventdata)
+
+
+client = MongoClient()
+# client.ufcstats.dropDatabase()
+client.ufcstats.events.insert_many(eventdata)
+
+print("Event Data Inserted")
 
 # for event in eventlinks:
 #   eventpage = requests.get(event)
