@@ -57,7 +57,7 @@ for event in client.ufcstats.events.find():
       fighters.append((text))
 
 print(fighters)
-
+ #
 # for event in eventlinks:
 #   eventpage = requests.get(event)
 #   soup = BeautifulSoup(eventpage.content, "html.parser")
