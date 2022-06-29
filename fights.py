@@ -42,7 +42,7 @@ fighters = []
 
 client = MongoClient()
 
-client.ufcstats.events.delete_one( {"_id": 610})
+# client.ufcstats.events.delete_one( {"_id": 610})
 
 for event in client.ufcstats.events.find():
   eventpage = requests.get(event['url'])
@@ -70,7 +70,12 @@ for x in range(0, len(fightlinks)):
   fightdata.append(fight)
 
 
-print(fightdata)
+# print(fightdata)
+
+# client.ufcstats.fights.drop()
+client.ufcstats.fights.insert_many(fightdata)
+
+
  #
 # for event in eventlinks:
 #   eventpage = requests.get(event)
