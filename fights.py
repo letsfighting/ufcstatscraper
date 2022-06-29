@@ -11,12 +11,14 @@ URL = "http://ufcstats.com/statistics/events/completed?page=all"
 page = requests.get(URL)
 
 soup = BeautifulSoup(page.content, "html.parser")
-data = []
-eventlinks = []
-eventnames = []
-eventdata = []
+# data = []
+# eventlinks = []
+# eventnames = []
+# eventdata = []
 
 fightlinks = []
+fightdata = []
+fighters = []
 
 
 # print(soup)
@@ -39,8 +41,22 @@ fightlinks = []
 
 
 client = MongoClient()
+
 for event in client.ufcstats.events.find():
-  print(event['url'])
+  eventpage = requests.get(event['url'])
+  soup = BeautifulSoup(eventpage.content, "html.parser")
+  for fightlink in soup.find_all('a'):
+    text = str(fightlink.get_text())
+    text = text.strip()
+    href = str(fightlink.get('href'))
+    match = re.search("(?P<url>https?://ufcstats.com/fight-details/.+)", href)
+    nameMatch = re.search("(?P<url>https?://ufcstats.com/fighter-details/.+)", href)
+    if match is not None:
+      fightlinks.append((match.group("url")))
+    if nameMatch is not None:
+      fighters.append((text))
+
+print(fighters)
 
 # for event in eventlinks:
 #   eventpage = requests.get(event)
