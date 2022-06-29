@@ -42,6 +42,8 @@ fighters = []
 
 client = MongoClient()
 
+client.ufcstats.events.delete_one( {"_id": 610})
+
 for event in client.ufcstats.events.find():
   eventpage = requests.get(event['url'])
   soup = BeautifulSoup(eventpage.content, "html.parser")
@@ -56,7 +58,19 @@ for event in client.ufcstats.events.find():
     if nameMatch is not None:
       fighters.append((text))
 
-print(fighters)
+
+for x in range(0, len(fighters), 2):
+
+  if x == 0:
+    y = x
+  else:
+    y += 1
+
+  fight = {'_id': len(fightlinks)-y, 'fight': f"{fighters[x]}:{fighters[x+1]}", 'url': fightlinks[y]}
+  fightdata.append(fight)
+
+
+print(fightdata)
  #
 # for event in eventlinks:
 #   eventpage = requests.get(event)

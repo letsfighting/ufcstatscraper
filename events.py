@@ -39,7 +39,7 @@ print(eventdata)
 
 
 client = MongoClient()
-# client.ufcstats.dropDatabase()
+client.ufcstats.events.drop()
 client.ufcstats.events.insert_many(eventdata)
 
 print("Event Data Inserted")
