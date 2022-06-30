@@ -67,8 +67,13 @@ print(f"refs and judges: {refAndJudges}")
 for link in soup.find_all('i', {"class": "b-fight-details__text-item"}):
   text = str(link.get_text())
   text = text.strip()
-  
-  details.append((text))
+  cleanText = text.replace('\n        \n        ','')
+  cleanText = cleanText.replace(' Rnd (5-5-5)','')
+  cleanText = cleanText.replace(' Rnd (5-5-5-5-5)','')
+  cleanText = cleanText.replace('\n        \n\n                                ','')
+  cleanText = cleanText.replace(' \n\n            \n            \n            ',':')
+  cleanText = cleanText.replace('.','')
+  details.append((cleanText))
 
 print(f"details: {details}")
 
