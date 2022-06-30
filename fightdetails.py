@@ -7,7 +7,7 @@ from pymongo import MongoClient
 
 patch_all()
 
-URL = "http://ufcstats.com/statistics/events/completed?page=all"
+URL = "http://ufcstats.com/fight-details/1f5f59924b59408b"
 page = requests.get(URL)
 
 soup = BeautifulSoup(page.content, "html.parser")
@@ -44,47 +44,28 @@ client = MongoClient()
 
 # client.ufcstats.events.delete_one( {"_id": 610})
 
-for event in client.ufcstats.events.find():
-  eventpage = requests.get(event['url'])
-  soup = BeautifulSoup(eventpage.content, "html.parser")
-  for fightlink in soup.find_all('a'):
-    text = str(fightlink.get_text())
-    text = text.strip()
-    href = str(fightlink.get('href'))
-    match = re.search("(?P<url>https?://ufcstats.com/fight-details/.+)", href)
-    # nameMatch = re.search("(?P<url>https?://ufcstats.com/fighter-details/.+)", href)
-    if match is not None:
-      fightlinks.append((match.group("url")))
-    # if nameMatch is not None:
-    #   fighters.append((text))
-
-
-for x in range(0, len(fightlinks)):
-
-  # if x == 0:
-  #   y = x
-  # else:
-  #   y += 1
-
-  fight = {'_id': len(fightlinks)-x, 'url': fightlinks[x]}
-  fightdata.append(fight)
-
-
-# print(fightdata)
-
-# client.ufcstats.fights.drop()
-client.ufcstats.fights.insert_many(fightdata)
-
-
- #
-# for event in eventlinks:
-#   eventpage = requests.get(event)
-#   soup = BeautifulSoup(eventpage.content, "html.parser")
+# for fight in client.ufcstats.fights.find():
+#   fightpage = requests.get(fight['url'])
+#   soup = BeautifulSoup(fightpage.content, "html.parser")
 #   for fightlink in soup.find_all('a'):
+#     text = str(fightlink.get_text())
+#     text = text.strip()
 #     href = str(fightlink.get('href'))
 #     match = re.search("(?P<url>https?://ufcstats.com/fight-details/.+)", href)
 #     if match is not None:
 #       fightlinks.append((match.group("url")))
 
 
-# print(fightlinks)
+
+# for x in range(0, len(fightlinks)):
+
+
+#   fight = {'_id': len(fightlinks)-x, 'url': fightlinks[x]}
+#   fightdata.append(fight)
+
+
+# # print(fightdata)
+
+# # client.ufcstats.fights.drop()
+# client.ufcstats.fights.insert_many(fightdata)
+
