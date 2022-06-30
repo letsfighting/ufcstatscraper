@@ -16,28 +16,62 @@ soup = BeautifulSoup(page.content, "html.parser")
 # eventnames = []
 # eventdata = []
 
-fightlinks = []
-fightdata = []
-fighters = []
+# fightlinks = []
+# fightdata = []
+# fighters = []
 
+fighterLinks = []
+fighterNames = []
+stats = []
+refAndJudges = []
+details = []
 
 # print(soup)
 
-# for link in soup.find_all('a'):
-#   text = str(link.get_text())
-#   text = text.strip()
-#   href = str(link.get('href'))
-#   match = re.search("(?P<url>https?://ufcstats.com/event-details/.+)", href)
-#   if match is not None:
-#     eventlinks.append((match.group("url")))
-#     eventnames.append(text)
+for link in soup.find_all('a'):
+  text = str(link.get_text())
+  text = text.strip()
+  href = str(link.get('href'))
+  match = re.search("(?P<url>https?://ufcstats.com/fighter-details/.+)", href)
+  if match is not None:
+    fighterLinks.append((match.group("url")))
+    fighterNames.append(text)
 
-# for x in range(0, len(eventlinks)):
-#   event = {'_id': len(eventlinks)-x, 'name': eventnames[x], 'url': eventlinks[x]}
-#   eventdata.append(event)
+# # for x in range(0, len(eventlinks)):
+# #   event = {'_id': len(eventlinks)-x, 'name': eventnames[x], 'url': eventlinks[x]}
+# #   eventdata.append(event)
 
 
-# print(eventdata)
+fighterLinks = list(dict.fromkeys(fighterLinks))
+fighterNames = list(dict.fromkeys(fighterNames))
+
+print(f"Fighter Links: {fighterLinks}")
+print(f"Fighter Names: {fighterNames}")
+
+for link in soup.find_all('p', {"class": "b-fight-details__table-text"}):
+  text = str(link.get_text())
+  text = text.strip()
+  if (text != fighterNames[0] and text != fighterNames[1]):
+    stats.append((text))
+
+print(f"stats: {stats}")
+
+for link in soup.find_all('span'):
+  text = str(link.get_text())
+  text = text.strip()
+  refAndJudges.append((text))
+
+
+print(f"refs and judges: {refAndJudges}")
+
+for link in soup.find_all('i', {"class": "b-fight-details__text-item"}):
+  text = str(link.get_text())
+  text = text.strip()
+  
+  details.append((text))
+
+print(f"details: {details}")
+
 
 
 client = MongoClient()
