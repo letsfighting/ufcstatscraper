@@ -77,6 +77,13 @@ for link in soup.find_all('i', {"class": "b-fight-details__text-item"}):
 
 print(f"details: {details}")
 
+for link in soup.find_all('i', {"class": "b-fight-details__fight-title"}):
+  text = str(link.get_text())
+  text = text.strip()
+  details.append((text))
+
+print(f"details: {details}")
+
 
 
 client = MongoClient()
