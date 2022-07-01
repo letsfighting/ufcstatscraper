@@ -80,9 +80,14 @@ print(f"details: {details}")
 for link in soup.find_all('i', {"class": "b-fight-details__fight-title"}):
   text = str(link.get_text())
   text = text.strip()
+  text = f"Fight_Type:{text}"
   details.append((text))
 
 print(f"details: {details}")
+
+for item in details:
+  match = re.search("(.+?(?=:))", item)
+  print(match.group(1))
 
 
 
