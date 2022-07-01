@@ -25,6 +25,8 @@ fighterNames = []
 stats = []
 refAndJudges = []
 details = []
+labels = []
+data = []
 
 # print(soup)
 
@@ -88,6 +90,12 @@ print(f"details: {details}")
 for item in details:
   match = re.search("(.+?(?=:))", item)
   print(match.group(1))
+  
+for item in details:
+  match = re.search(":([\s\S]*)$", item)
+  print(match.group(1))
+
+
 
 
 
