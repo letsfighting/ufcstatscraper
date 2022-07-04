@@ -89,13 +89,16 @@ print(f"details: {details}")
 
 for item in details:
   match = re.search("(.+?(?=:))", item)
-  print(match.group(1))
+  
+  labels.append(match.group(1))
   
 for item in details:
   match = re.search(":([\s\S]*)$", item)
-  print(match.group(1))
+  
+  data.append(match.group(1))
 
-
+print(f"labels: {labels}")
+print(f"data: {data}")
 
 
 
@@ -113,7 +116,7 @@ client = MongoClient()
 #     match = re.search("(?P<url>https?://ufcstats.com/fight-details/.+)", href)
 #     if match is not None:
 #       fightlinks.append((match.group("url")))
-
+#
 
 
 # for x in range(0, len(fightlinks)):
