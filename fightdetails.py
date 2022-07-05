@@ -124,7 +124,7 @@ client = MongoClient()
 
 #   fight = {'_id': len(fightlinks)-x, 'url': fightlinks[x]}
 #   fightdata.append(fight)
-
+#
 
 # # print(fightdata)
 
