@@ -7,7 +7,7 @@ from pymongo import MongoClient
 
 patch_all()
 
-URL = "http://ufcstats.com/fight-details/1f5f59924b59408b"
+URL = "http://ufcstats.com/fight-details/3c98739eb42f96bf"
 page = requests.get(URL)
 
 soup = BeautifulSoup(page.content, "html.parser")
@@ -23,12 +23,28 @@ soup = BeautifulSoup(page.content, "html.parser")
 fighterLinks = []
 fighterNames = []
 stats = []
-refAndJudges = []
+ref = []
 details = []
 labels = []
 data = []
+winnersLosers = []
 
 # print(soup)
+
+for link in soup.find_all('i', {"class": "b-fight-details__person-status"}):
+  text = str(link.get_text())
+  text = text.strip()
+  # href = str(link.get('href'))
+  # match = re.search("(?P<url>https?://ufcstats.com/fighter-details/.+)", href)
+  # if match is not None:
+  winnersLosers.append(text)
+
+# # for x in range(0, len(eventlinks)):
+# #   event = {'_id': len(eventlinks)-x, 'name': eventnames[x], 'url': eventlinks[x]}
+# #   eventdata.append(event)
+
+
+print(f"winnerLosers: {winnersLosers}")
 
 for link in soup.find_all('a'):
   text = str(link.get_text())
@@ -61,10 +77,10 @@ print(f"stats: {stats}")
 for link in soup.find_all('span'):
   text = str(link.get_text())
   text = text.strip()
-  refAndJudges.append((text))
+  ref.append((text))
 
 
-print(f"refs and judges: {refAndJudges}")
+print(f"ref: {ref}")
 
 for link in soup.find_all('i', {"class": "b-fight-details__text-item"}):
   text = str(link.get_text())
@@ -99,6 +115,12 @@ for item in details:
 
 print(f"labels: {labels}")
 print(f"data: {data}")
+
+
+#fight details organization
+
+
+
 
 
 
