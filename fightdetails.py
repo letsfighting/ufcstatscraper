@@ -27,9 +27,9 @@ ref = []
 details = []
 labels = []
 data = []
-winners_losers = []
+outcome_array = []
 fight = []
-fightid = []
+winner_loser = []
 
 # print(soup)
 
@@ -39,14 +39,14 @@ for link in soup.find_all('i', {"class": "b-fight-details__person-status"}):
   # href = str(link.get('href'))
   # match = re.search("(?P<url>https?://ufcstats.com/fighter-details/.+)", href)
   # if match is not None:
-  winners_losers.append(text)
+  outcome_array.append(text)
 
 # # for x in range(0, len(eventlinks)):
 # #   event = {'_id': len(eventlinks)-x, 'name': eventnames[x], 'url': eventlinks[x]}
 # #   eventdata.append(event)
 
 
-print(f"winnerLosers: {winners_losers}")
+print(f"outcome_array: {outcome_array}")
 
 for link in soup.find_all('a'):
   text = str(link.get_text())
@@ -134,6 +134,18 @@ print(f"fight: {fight}")
 trimmed = re.search(":([\s\S]*)$", fight[0])
 
 print(f"trimmed fight: {trimmed.group(1)[1:]}")
+
+if outcome_array[0] == "W":
+ winner_loser.append(fighter_names[0])
+ winner_loser.append(fighter_names[1])
+elif outcome_array[0] == "L":
+ winner_loser.append(fighter_names[1])
+ winner_loser.append(fighter_names[0])
+elif outcome_array[0] == "D":
+ winner_loser.append(fighter_names[0])
+ winner_loser.append(fighter_names[1])
+
+# fightid = {'event': trimmed.group(1)[1:], "fighter1": winner_loser[0], "fighter2": winner_loser[1]}
 
 # fight details organization
 
