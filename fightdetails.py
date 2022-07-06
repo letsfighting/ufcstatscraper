@@ -29,6 +29,7 @@ labels = []
 data = []
 winners_losers = []
 fight = []
+fightid = []
 
 # print(soup)
 
@@ -130,6 +131,9 @@ for link in soup.find_all('a'):
 
 print(f"fight: {fight}")
 
+trimmed = re.search(":([\s\S]*)$", fight[0])
+
+print(f"trimmed fight: {trimmed.group(1)[1:]}")
 
 # fight details organization
 
