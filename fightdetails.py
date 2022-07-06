@@ -11,14 +11,6 @@ URL = "http://ufcstats.com/fight-details/3c98739eb42f96bf"
 page = requests.get(URL)
 
 soup = BeautifulSoup(page.content, "html.parser")
-# data = []
-# eventlinks = []
-# eventnames = []
-# eventdata = []
-
-# fightlinks = []
-# fightdata = []
-# fighters = []
 
 fighter_links = []
 fighter_names = []
@@ -31,7 +23,7 @@ outcome_array = []
 fight = []
 winner_loser = []
 
-# print(soup)
+
 
 for link in soup.find_all('i', {"class": "b-fight-details__person-status"}):
   text = str(link.get_text())
@@ -75,14 +67,6 @@ for link in soup.find_all('p', {"class": "b-fight-details__table-text"}):
     stats.append((text))
 
 print(f"stats: {stats}")
-
-# for link in soup.find_all('span'):
-#   text = str(link.get_text())
-#   text = text.strip()
-#   ref.append((text))
-
-
-# print(f"ref: {ref}")
 
 for link in soup.find_all('i', {"class": "b-fight-details__text-item"}):
   text = str(link.get_text())
@@ -144,6 +128,8 @@ elif outcome_array[0] == "L":
 elif outcome_array[0] == "D":
  winner_loser.append(fighter_names[0])
  winner_loser.append(fighter_names[1])
+
+print(f"winner_loser: {winner_loser}")
 
 # fightid = {'event': trimmed.group(1)[1:], "fighter1": winner_loser[0], "fighter2": winner_loser[1]}
 
