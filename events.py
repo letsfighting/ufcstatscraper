@@ -44,14 +44,3 @@ client.ufcstats.events.insert_many(eventdata)
 
 print("Event Data Inserted")
 
-# for event in eventlinks:
-#   eventpage = requests.get(event)
-#   soup = BeautifulSoup(eventpage.content, "html.parser")
-#   for fightlink in soup.find_all('a'):
-#     href = str(fightlink.get('href'))
-#     match = re.search("(?P<url>https?://ufcstats.com/fight-details/.+)", href)
-#     if match is not None:
-#       fightlinks.append((match.group("url")))
-
-
-# print(fightlinks)
