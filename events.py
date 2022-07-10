@@ -19,7 +19,7 @@ eventdata = []
 fightlinks = []
 
 
-# print(soup)
+
 
 for link in soup.find_all('a'):
   text = str(link.get_text())
