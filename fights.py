@@ -11,10 +11,7 @@ URL = "http://ufcstats.com/statistics/events/completed?page=all"
 page = requests.get(URL)
 
 soup = BeautifulSoup(page.content, "html.parser")
-# data = []
-# eventlinks = []
-# eventnames = []
-# eventdata = []
+
 
 fightlinks = []
 fightdata = []
