@@ -7,7 +7,7 @@ from pymongo import MongoClient
 
 patch_all()
 
-URL = "http://ufcstats.com/fight-details/3c98739eb42f96bf"
+URL = "http://ufcstats.com/fight-details/0308bcdd00cc72e2"
 page = requests.get(URL)
 
 soup = BeautifulSoup(page.content, "html.parser")
