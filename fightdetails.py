@@ -29,7 +29,6 @@ for link in soup.find_all('i', {"class": "b-fight-details__person-status"}):
   text = str(link.get_text())
   text = text.strip()
   # href = str(link.get('href'))
-  # match = re.search("(?P<url>https?://ufcstats.com/fighter-details/.+)", href)
 
   outcome_array.append(text)
 
