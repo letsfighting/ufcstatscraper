@@ -151,7 +151,11 @@ print(f"trimmed fight: {trimmed.group(1)[1:]}")
 
 trimmed2 = re.search(r'Method:\s*([^\r\n]+)', method_array2[0])
 
-print(f"trimmed method: {trimmed2.group(1)}")
+print(f"trimmed method2: {trimmed2.group(1)}")
+
+trimmed3 = re.search(r'Details:\s*([^\r\n]+)', method_array[1])
+
+print(f"trimmed method: {trimmed3.group(1)}")
 
 if outcome_array[0] == "W":
  winner_loser.append(fighter_names[0])
