@@ -7,7 +7,7 @@ from pymongo import MongoClient
 
 patch_all()
 
-URL = "http://ufcstats.com/fight-details/0308bcdd00cc72e2"
+URL = "http://ufcstats.com/fight-details/39dccca8e8083072"
 page = requests.get(URL)
 
 soup = BeautifulSoup(page.content, "html.parser")
@@ -45,21 +45,6 @@ for link in soup.find_all('i', {"class": "b-fight-details__text-item_first"}):
   text = text.strip()
   # href = str(link.get('href'))
 
-  method_array2.append(text)
-
-# # for x in range(0, len(eventlinks)):
-# #   event = {'_id': len(eventlinks)-x, 'name': eventnames[x], 'url': eventlinks[x]}
-# #   eventdata.append(event)
-
-
-print(f"method_array2: {method_array2}")
-
-
-for link in soup.find_all('p', {"class": "b-fight-details__text"}):
-  text = str(link.get_text())
-  text = text.strip()
-  # href = str(link.get('href'))
-
   method_array.append(text)
 
 # # for x in range(0, len(eventlinks)):
@@ -67,7 +52,27 @@ for link in soup.find_all('p', {"class": "b-fight-details__text"}):
 # #   eventdata.append(event)
 
 
-print(f"method_array: {method_array}")
+trimmed1 = re.search(r'Method:\s*([^\r\n]+)', method_array[0])
+
+print(f"trimmed method: {trimmed1.group(1)}")
+
+
+for link in soup.find_all('p', {"class": "b-fight-details__text"}):
+  text = str(link.get_text())
+  text = text.strip()
+  # href = str(link.get('href'))
+
+  method_array2.append(text)
+
+# # for x in range(0, len(eventlinks)):
+# #   event = {'_id': len(eventlinks)-x, 'name': eventnames[x], 'url': eventlinks[x]}
+# #   eventdata.append(event)
+
+trimmed2 = re.search(r'Details:\s*([^\r\n]+)', method_array2[1])
+
+print(f"trimmed method2: {trimmed2.group(1)}")
+
+
 
 
 for link in soup.find_all('a'):
@@ -149,13 +154,9 @@ trimmed = re.search(":([\s\S]*)$", fight[0])
 
 print(f"trimmed fight: {trimmed.group(1)[1:]}")
 
-trimmed2 = re.search(r'Method:\s*([^\r\n]+)', method_array2[0])
 
-print(f"trimmed method2: {trimmed2.group(1)}")
 
-trimmed3 = re.search(r'Details:\s*([^\r\n]+)', method_array[1])
 
-print(f"trimmed method: {trimmed3.group(1)}")
 
 if outcome_array[0] == "W":
  winner_loser.append(fighter_names[0])
@@ -164,8 +165,10 @@ elif outcome_array[0] == "L":
  winner_loser.append(fighter_names[1])
  winner_loser.append(fighter_names[0])
 elif outcome_array[0] == "D":
- winner_loser.append(fighter_names[0])
- winner_loser.append(fighter_names[1])
+ winner_loser.append("D")
+elif outcome_array[0] == "NC":
+ winner_loser.append("NC")
+
 
 print(f"winner_loser: {winner_loser}")
 
