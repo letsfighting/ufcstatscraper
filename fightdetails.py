@@ -22,6 +22,8 @@ data = []
 outcome_array = []
 fight = []
 winner_loser = []
+method_array = []
+method_array2 = []
 
 
 
@@ -36,8 +38,37 @@ for link in soup.find_all('i', {"class": "b-fight-details__person-status"}):
 # #   event = {'_id': len(eventlinks)-x, 'name': eventnames[x], 'url': eventlinks[x]}
 # #   eventdata.append(event)
 
-
 print(f"outcome_array: {outcome_array}")
+
+for link in soup.find_all('i', {"class": "b-fight-details__text-item_first"}):
+  text = str(link.get_text())
+  text = text.strip()
+  # href = str(link.get('href'))
+
+  method_array2.append(text)
+
+# # for x in range(0, len(eventlinks)):
+# #   event = {'_id': len(eventlinks)-x, 'name': eventnames[x], 'url': eventlinks[x]}
+# #   eventdata.append(event)
+
+
+print(f"method_array2: {method_array2}")
+
+
+for link in soup.find_all('p', {"class": "b-fight-details__text"}):
+  text = str(link.get_text())
+  text = text.strip()
+  # href = str(link.get('href'))
+
+  method_array.append(text)
+
+# # for x in range(0, len(eventlinks)):
+# #   event = {'_id': len(eventlinks)-x, 'name': eventnames[x], 'url': eventlinks[x]}
+# #   eventdata.append(event)
+
+
+print(f"method_array: {method_array}")
+
 
 for link in soup.find_all('a'):
   text = str(link.get_text())
@@ -118,6 +149,10 @@ trimmed = re.search(":([\s\S]*)$", fight[0])
 
 print(f"trimmed fight: {trimmed.group(1)[1:]}")
 
+trimmed2 = re.search(r'Method:\s*([^\r\n]+)', method_array2[0])
+
+print(f"trimmed method: {trimmed2.group(1)}")
+
 if outcome_array[0] == "W":
  winner_loser.append(fighter_names[0])
  winner_loser.append(fighter_names[1])
@@ -132,7 +167,6 @@ print(f"winner_loser: {winner_loser}")
 
 # fightid = {'event': trimmed.group(1)[1:], "fighter1": winner_loser[0], "fighter2": winner_loser[1]}
 
-# fight details organization
 
 
 
