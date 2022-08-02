@@ -40,6 +40,7 @@ client = MongoClient()
 #   fighterpage = requests.get(fighterlink['url'])
 #   soup = BeautifulSoup(fighterpage.content, "html.parser")
 
+# fighterpage = requests.get('http://ufcstats.com/fighter-details/93fe7332d16c6ad9')
 fighterpage = requests.get('http://ufcstats.com/fighter-details/3329d692aea4dc28')
 soup = BeautifulSoup(fighterpage.content, "html.parser")
 
@@ -55,21 +56,37 @@ for attribute in soup.find_all('li', {"class": "b-list__box-list-item_type_block
   if trimmed is not None:
     feet = ((trimmed.group(1)[:-4].strip()))
     inches = ((trimmed.group(1)[-2].strip()))
-    totalheight = (int(feet) * 12 + int(inches))
-    fighterstat.append(totalheight)
+    if feet.isnumeric() and inches.isnumeric():
+      totalheight = (int(feet) * 12 + int(inches))
+      fighterstat.append(totalheight)
+    else:
+      fighterstat.append(trimmed.group(1).strip())
 
   trimmed = re.search("(?s).*Weight:(.*)", text)
   if trimmed is not None:
-    fighterstat.append(int(trimmed.group(1)[:-4].strip()))
+    if trimmed.group(1)[:-4].strip().isnumeric():
+      fighterstat.append(int(trimmed.group(1)[:-4].strip()))
+    else:
+      fighterstat.append(trimmed.group(1).strip())
   trimmed = re.search("(?s).*Reach:(.*)", text)
   if trimmed is not None:
-    fighterstat.append(int(trimmed.group(1)[:-1].strip()))
+    if  trimmed.group(1)[:-1].strip().isnumeric():
+      fighterstat.append(int(trimmed.group(1)[:-1].strip()))
+    else:
+      fighterstat.append('--')
   trimmed = re.search("(?s).*STANCE:(.*)", text)
   if trimmed is not None:
-    fighterstat.append((trimmed.group(1).strip()))
+    if trimmed.group(1).strip():
+      fighterstat.append((trimmed.group(1).strip()))
+    else:
+      fighterstat.append('--')
+
   trimmed = re.search("(?s).*DOB:(.*)", text)
   if trimmed is not None:
-    fighterstat.append(int(trimmed.group(1)[-4:].strip()))
+    if trimmed.group(1)[-4:].strip().isnumeric():
+      fighterstat.append(int(trimmed.group(1)[-4:].strip()))
+    else:
+      fighterstat.append('--')
 
 
 
