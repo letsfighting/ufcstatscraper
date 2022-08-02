@@ -5,9 +5,12 @@ import pymongoarrow as pma
 from pymongoarrow.monkey import patch_all
 from pymongo import MongoClient
 
+
+from modules.statsparser import statsparser
+
 patch_all()
 
-URL = "http://ufcstats.com/fight-details/39dccca8e8083072"
+URL = "http://ufcstats.com/fight-details/a7eaf7b101166d3e"
 page = requests.get(URL)
 
 soup = BeautifulSoup(page.content, "html.parser")
@@ -211,3 +214,5 @@ client = MongoClient()
 # # client.ufcstats.fights.drop()
 # client.ufcstats.fights.insert_many(fightdata)
 
+
+statsparser(int(data[0]), stats)
