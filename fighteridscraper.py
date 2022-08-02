@@ -30,7 +30,10 @@ for letter in x:
     href = str(link.get('href'))
     match = re.search("(?P<url>https?://ufcstats.com/fighter-details/.+)", href)
     if match is not None:
-      fighterlinks.append((match.group("url")))
+      if match.group("url") in fighterlinks:
+        continue
+      else:
+        fighterlinks.append((match.group("url")))
   
   y = y + 1
 
@@ -81,8 +84,8 @@ client = MongoClient()
 
 # print(fightdata)
 
-# client.ufcstats.fights.drop()
-# client.ufcstats.fights.insert_many(fightdata)
+client.ufcstats.fighterlinks.drop()
+client.ufcstats.fighterlinks.insert_many(fighterdata)
 
 
  #
