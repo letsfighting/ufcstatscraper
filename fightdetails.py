@@ -51,7 +51,7 @@ for link in soup.find_all('i', {"class": "b-fight-details__text-item_first"}):
 # #   event = {'_id': len(eventlinks)-x, 'name': eventnames[x], 'url': eventlinks[x]}
 # #   eventdata.append(event)
 
-
+# to return everything after "Method:
 trimmed1 = re.search(r'Method:\s*([^\r\n]+)', method_array[0])
 
 print(f"trimmed method: {trimmed1.group(1)}")
@@ -68,6 +68,8 @@ for link in soup.find_all('p', {"class": "b-fight-details__text"}):
 # #   event = {'_id': len(eventlinks)-x, 'name': eventnames[x], 'url': eventlinks[x]}
 # #   eventdata.append(event)
 
+
+# to return everything after "Details:"
 trimmed2 = re.search(r'Details:\s*([^\r\n]+)', method_array2[1])
 
 print(f"trimmed method2: {trimmed2.group(1)}")
