@@ -51,7 +51,10 @@ for event in client.ufcstats.events.find():
     match = re.search("(?P<url>https?://ufcstats.com/fight-details/.+)", href)
     # nameMatch = re.search("(?P<url>https?://ufcstats.com/fighter-details/.+)", href)
     if match is not None:
-      fightlinks.append((match.group("url")))
+      if match.group("url") in fightlinks:
+        continue
+      else:
+        fightlinks.append((match.group("url")))
     # if nameMatch is not None:
     #   fighters.append((text))
 
@@ -69,7 +72,7 @@ for x in range(0, len(fightlinks)):
 
 # print(fightdata)
 
-# client.ufcstats.fights.drop()
+client.ufcstats.fights.drop()
 client.ufcstats.fights.insert_many(fightdata)
 
 

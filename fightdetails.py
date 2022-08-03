@@ -6,6 +6,8 @@ import pymongoarrow as pma
 from pymongoarrow.monkey import patch_all
 from pymongo import MongoClient
 
+import time
+
 
 from modules.statsparser import statsparser
 
@@ -49,7 +51,7 @@ def fightstatsfighter(fighturl, fighterlinksArr, fighternamesArr, method, refere
   'BSD': fighter2_stats[29], 'BSR': fighter2_stats[30], 'LSD': fighter2_stats[31], 'LSR': fighter2_stats[32], 'DSD': fighter2_stats[33], 'DSR': fighter2_stats[34], 'CSD': fighter2_stats[35], 'CSR': fighter2_stats[36], 'GSD': fighter2_stats[37], 'GSR': fighter2_stats[38]}
 
   answer = [fighter1_complete, fighter2_complete]
-  print(answer)
+  # print(answer)
 
   return answer 
 
@@ -90,7 +92,7 @@ def fightdetails(url):
   # #   event = {'_id': len(eventlinks)-x, 'name': eventnames[x], 'url': eventlinks[x]}
   # #   eventdata.append(event)
 
-  print(f"outcome_array: {outcome_array}")
+  # print(f"outcome_array: {outcome_array}")
 
   for link in soup.find_all('i', {"class": "b-fight-details__text-item_first"}):
     text = str(link.get_text())
@@ -106,7 +108,7 @@ def fightdetails(url):
   # to return everything after "Method:
   trimmed1 = re.search(r'Method:\s*([^\r\n]+)', method_array[0])
 
-  print(f"trimmed method: {trimmed1.group(1)}")
+  # print(f"trimmed method: {trimmed1.group(1)}")
   method = trimmed1.group(1)
 
 
@@ -147,8 +149,8 @@ def fightdetails(url):
   fighter_links = list(dict.fromkeys(fighter_links))
   fighter_names = list(dict.fromkeys(fighter_names))
 
-  print(f"Fighter Links: {fighter_links}")
-  print(f"Fighter Names: {fighter_names}")
+  # print(f"Fighter Links: {fighter_links}")
+  # print(f"Fighter Names: {fighter_names}")
 
   for link in soup.find_all('p', {"class": "b-fight-details__table-text"}):
     text = str(link.get_text())
@@ -156,7 +158,7 @@ def fightdetails(url):
     if (text != fighter_names[0] and text != fighter_names[1]):
       stats.append((text))
 
-  print(f"stats: {stats}")
+  # print(f"stats: {stats}")
 
   for link in soup.find_all('i', {"class": "b-fight-details__text-item"}):
     text = str(link.get_text())
@@ -164,6 +166,8 @@ def fightdetails(url):
     cleanText = text.replace('\n        \n        ','')
     cleanText = cleanText.replace(' Rnd (5-5-5)','')
     cleanText = cleanText.replace(' Rnd (5-5-5-5-5)','')
+    cleanText = cleanText.replace(' Rnd + OT (5-5-5-5)','')
+    cleanText = cleanText.replace(' Rnd + OT (5-5-5-5-5-5)','')
     cleanText = cleanText.replace('\n        \n\n                                ','')
     cleanText = cleanText.replace(' \n\n            \n            \n            ',':')
     cleanText = cleanText.replace('.','')
@@ -177,7 +181,7 @@ def fightdetails(url):
     text = f"Fight_Type:{text}"
     details.append((text))
 
-  print(f"details: {details}")
+  # print(f"details: {details}")
 
   
 
@@ -204,7 +208,12 @@ def fightdetails(url):
     judge3score = "--"
     round_format = int(re.search("(?s).*?Time format:(.*)", details[2]).group(1))
     rounds_total = int(re.search("(?s).*?Round:(.*)", details[0]).group(1))
-    detailedmethod = re.search(r'Details:\s*([^\r\n]+)', method_array2[1]).group(1)
+    # print(method_array2)
+    if re.search(r'Details:\s*([^\r\n]+)', method_array2[1]) != None:
+      detailedmethod = re.search(r'Details:\s*([^\r\n]+)', method_array2[1]).group(1)
+    else:
+      detailedmethod = "Not Applicable"
+      
     if data[4].find("Title") > -1:
       championship = True
     else:
@@ -216,10 +225,11 @@ def fightdetails(url):
     judge1 = (re.search("^(.*)(?=:)", details[4]).group(1))
     judge2 = (re.search("^(.*)(?=:)", details[5]).group(1))
     judge3 = (re.search("^(.*)(?=:)", details[6]).group(1))
-    judge1score = (re.search("^(?s).*?:(.*)", details[4]).group(1))
-    judge2score = (re.search("^(?s).*?:(.*)", details[5]).group(1))
-    judge3score = (re.search("^(?s).*?:(.*)", details[6]).group(1))
+    judge1score = (re.search("(?s).*?:(.*)", details[4]).group(1))
+    judge2score = (re.search("(?s).*?:(.*)", details[5]).group(1))
+    judge3score = (re.search("(?s).*?:(.*)", details[6]).group(1))
     round_format = int(re.search("(?s).*?Time format:(.*)", details[2]).group(1))
+  
     rounds_total = int(re.search("(?s).*?Round:(.*)", details[0]).group(1))
     detailedmethod = "Judge's Decision"
     if data[7].find("Title") > -1:
@@ -227,8 +237,8 @@ def fightdetails(url):
     else:
       championship = False
 
-  print(f"labels: {labels}")
-  print(f"data: {data}")
+  # print(f"labels: {labels}")
+  # print(f"data: {data}")
 
   minutes = int(re.search("^(.*)(?=:)", data[1]).group(1))
   seconds = int(re.search("(?s).*?:(.*)", data[1]).group(1))
@@ -245,11 +255,11 @@ def fightdetails(url):
       fight.append(text)
 
 
-  print(f"fight: {fight}")
+  # print(f"fight: {fight}")
 
   trimmed = re.search(":([\s\S]*)$", fight[0])
 
-  print(f"trimmed fight: {trimmed.group(1)[1:]}")
+  # print(f"trimmed fight: {trimmed.group(1)[1:]}")
 
 
 
@@ -271,7 +281,7 @@ def fightdetails(url):
     winner_loser.append("NC")
     outcome = 0
 
-  print(f"winner_loser: {winner_loser}")
+  # print(f"winner_loser: {winner_loser}")
 
 # fightid = {'event': trimmed.group(1)[1:], "fighter1": winner_loser[0], "fighter2": winner_loser[1]}
 
@@ -285,15 +295,14 @@ def fightdetails(url):
 
 
 
-  print("fight_details: ", fight_details)
-  print("fight_stats: ", fight_stats)
+  # print("fight_details: ", fight_details)
+  # print("fight_stats: ", fight_stats)
 
 
   fight_stats_fighter = fightstatsfighter(url, fighter_links, fighter_names, method, referee, detailedmethod, rounds_total, duration, outcome, fight_stats)
 
   client = MongoClient()
-  client.ufcstats.fightdetails.drop()
-  client.ufcstats.fightstats.drop()
+
   client.ufcstats.fightdetails.insert_one(fight_details)
   client.ufcstats.fightstats.insert_many(fight_stats_fighter)
 
@@ -313,10 +322,16 @@ def fightdetails(url):
 mclient = MongoClient()
 mclient.ufcstats.fightdetails.drop()
 mclient.ufcstats.fightstats.drop()
-
+timestart = time.time()
+print("Started at: ", timestart)
 for fight in mclient.ufcstats.fights.find():
+  print("Captured fight: ", fight['url'])
   fightdetails(fight['url'])
   
+
+timefinish = time.time()
+timecomplete = timefinish - timestart
+print(f"It took {timecomplete} milliseconds to complete")
 
 
 # for x in range(0, len(fightlinks)):
