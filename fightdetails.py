@@ -222,20 +222,41 @@ def fightdetails(url):
   else:
     weight_class = (re.search("(?s).*?Fight_Type:(.*)", details[7]).group(1))
     referee = (re.search("(?s).*?Referee:(.*)", details[3]).group(1))
-    judge1 = (re.search("^(.*)(?=:)", details[4]).group(1))
-    judge2 = (re.search("^(.*)(?=:)", details[5]).group(1))
-    judge3 = (re.search("^(.*)(?=:)", details[6]).group(1))
-    judge1score = (re.search("(?s).*?:(.*)", details[4]).group(1))
-    judge2score = (re.search("(?s).*?:(.*)", details[5]).group(1))
-    judge3score = (re.search("(?s).*?:(.*)", details[6]).group(1))
+    if re.search("^(.*)(?=:)", details[4]) != None:
+      judge1 = (re.search("^(.*)(?=:)", details[4]).group(1))
+    else:
+      judge1 = 'judge1'
+    if re.search("^(.*)(?=:)", details[5]) != None:      
+      judge2 = (re.search("^(.*)(?=:)", details[5]).group(1))
+    else:
+      judge2 = 'judge2'
+    if re.search("^(.*)(?=:)", details[6]) != None:
+      judge3 = (re.search("^(.*)(?=:)", details[6]).group(1))
+    else:
+      judge3 = 'judge3'
+    if re.search("(?s).*?:(.*)", details[4]) != None:
+      judge1score = (re.search("(?s).*?:(.*)", details[4]).group(1))
+    else:
+      judge1score = details[4]
+    if re.search("(?s).*?:(.*)", details[5]) != None:
+      judge2score = (re.search("(?s).*?:(.*)", details[5]).group(1))
+    else:
+      judge2score = details[5]
+    if re.search("(?s).*?:(.*)", details[6]) != None:
+      judge3score = (re.search("(?s).*?:(.*)", details[6]).group(1))
+    else:
+      judge3score = details[6]
     round_format = int(re.search("(?s).*?Time format:(.*)", details[2]).group(1))
   
     rounds_total = int(re.search("(?s).*?Round:(.*)", details[0]).group(1))
     detailedmethod = "Judge's Decision"
-    if data[7].find("Title") > -1:
+
+    if data[len(data)-1].find("Title") > -1:
       championship = True
     else:
       championship = False
+
+    print("championship: " + str(championship))
 
   # print(f"labels: {labels}")
   # print(f"data: {data}")
@@ -313,7 +334,7 @@ def fightdetails(url):
 
 # end of fightdetails function
 
-fightdetails("http://ufcstats.com/fight-details/21f79cd40513d075")
+fightdetails("http://ufcstats.com/fight-details/72c3e5eacde4f0e5")
 
 
 
