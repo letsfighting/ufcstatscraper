@@ -58,7 +58,7 @@ def fightstatsfighter(fighturl, fighterlinksArr, fighternamesArr, method, refere
 
 
 def fightdetails(url):
-  # URL = "http://ufcstats.com/fight-details/a7eaf7b101166d3e"
+
   URL = url
   page = requests.get(URL)
 
@@ -307,23 +307,16 @@ def fightdetails(url):
 
 
 
-fightdetails("http://ufcstats.com/fight-details/03aec9073946907f")
-
-
 
 # client.ufcstats.events.delete_one( {"_id": 610})
 
-# for fight in client.ufcstats.fights.find():
-#   fightpage = requests.get(fight['url'])
-#   soup = BeautifulSoup(fightpage.content, "html.parser")
-#   for fightlink in soup.find_all('a'):
-#     text = str(fightlink.get_text())
-#     text = text.strip()
-#     href = str(fightlink.get('href'))
-#     match = re.search("(?P<url>https?://ufcstats.com/fight-details/.+)", href)
-#     if match is not None:
-#       fightlinks.append((match.group("url")))
-#
+mclient = MongoClient()
+mclient.ufcstats.fightdetails.drop()
+mclient.ufcstats.fightstats.drop()
+
+for fight in mclient.ufcstats.fights.find():
+  fightdetails(fight['url'])
+  
 
 
 # for x in range(0, len(fightlinks)):
