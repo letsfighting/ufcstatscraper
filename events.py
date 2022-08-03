@@ -31,7 +31,8 @@ for link in soup.find_all('a'):
     eventnames.append(text)
 
 for x in range(0, len(eventlinks)):
-  event = {'_id': len(eventlinks)-x, 'name': eventnames[x], 'url': eventlinks[x]}
+  eventid = (re.search("(?s).*?event-details/(.*)", eventlinks[x])).group(1)
+  event = {'_id': eventid, 'human_id': len(eventlinks)-x, 'name': eventnames[x], 'url': eventlinks[x]}
   eventdata.append(event)
 
 

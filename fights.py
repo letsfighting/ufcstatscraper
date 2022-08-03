@@ -39,7 +39,8 @@ fighters = []
 
 client = MongoClient()
 
-# client.ufcstats.events.delete_one( {"_id": 610})
+# delete the last event as it has no fights yet
+client.ufcstats.events.delete_one( {"human_id": 615})
 
 for event in client.ufcstats.events.find():
   eventpage = requests.get(event['url'])
@@ -54,6 +55,7 @@ for event in client.ufcstats.events.find():
       if match.group("url") in fightlinks:
         continue
       else:
+        print("Appended: ", match.group("url"))
         fightlinks.append((match.group("url")))
     # if nameMatch is not None:
     #   fighters.append((text))
@@ -66,7 +68,9 @@ for x in range(0, len(fightlinks)):
   # else:
   #   y += 1
 
-  fight = {'_id': len(fightlinks)-x, 'url': fightlinks[x]}
+  fightid = (re.search("(?s).*?fight-details/(.*)", fightlinks[x])).group(1)
+  fight = {'_id': fightid, 'human_id': len(fightlinks)-x, 'url': fightlinks[x]}
+  print("Inserted: ", fight)
   fightdata.append(fight)
 
 

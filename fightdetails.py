@@ -313,12 +313,6 @@ def fightdetails(url):
 
 
 
-
-
-
-
-# client.ufcstats.events.delete_one( {"_id": 610})
-
 mclient = MongoClient()
 mclient.ufcstats.fightdetails.drop()
 mclient.ufcstats.fightstats.drop()
