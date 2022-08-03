@@ -42,18 +42,20 @@ def statsparser(rounds, stats):
   fightertwo.append(int(stats[13])) # SUBATT
   fighterone.append(int(stats[14])) # REV
   fightertwo.append(int(stats[15])) # REV
+
   # take only everything before :
   trimmed = re.search("^(.*)(?=:)", stats[16])
-  fighterone.append(int(trimmed.group(1))) # CTRL in minutes
+   # take only everything after :
+  seconds = re.search("(?s).*?:(.*)", stats[16])
+  time1 = int(trimmed.group(1)) * 60 + int(seconds.group(1))
+  fighterone.append(time1) # CTRL in seconds
+
   # take only everything before :
   trimmed2 = re.search("^(.*)(?=:)", stats[17])
-  fightertwo.append(int(trimmed2.group(1))) # CTRL in minutes
+  seconds2 = re.search("(?s).*?:(.*)", stats[17])
+  time2 = int(trimmed2.group(1)) * 60 + int(seconds2.group(1))
+  fightertwo.append(time2) # CTRL in seconds
   
-   # take only everything before :
-  trimmed = re.search("^(.*)(?=:)", stats[17])
-  fighterone.append(int(trimmed.group(1))) # BTM in minutes
-  trimmed2 = re.search("^(.*)(?=:)", stats[16])
-  fightertwo.append(int(trimmed2.group(1))) # CTRL in minutes
   x = 18 + 18 * rounds + 4
   y = 19 + 18 * rounds + 4
    # take only everything before of
@@ -173,6 +175,21 @@ def statsparser(rounds, stats):
   fightertwo.append(int(trimmed3.group(1)[1:])) # TDR
   fighterone.append(int(stats[15])) # REVD
   fightertwo.append(int(stats[14])) # REVD
+
+  # take only everything before :
+  trimmed = re.search("^(.*)(?=:)", stats[16])
+   # take only everything after :
+  seconds = re.search("(?s).*?:(.*)", stats[16])
+  time1 = int(trimmed.group(1)) * 60 + int(seconds.group(1))
+  fightertwo.append(time1) # CTRLED in seconds
+
+  # take only everything before :
+  trimmed2 = re.search("^(.*)(?=:)", stats[17])
+  seconds2 = re.search("(?s).*?:(.*)", stats[17])
+  time2 = int(trimmed2.group(1)) * 60 + int(seconds2.group(1))
+  fighterone.append(time2) # CTRLED in seconds
+
+
   x = 18 + 18 * rounds + 4
   y = 19 + 18 * rounds + 4
   # take only everything before of
@@ -265,13 +282,15 @@ def statsparser(rounds, stats):
   trimmed4 = re.search("(?s).*?of(.*)", stats[y])
   fighterone.append(int(trimmed4.group(1)[1:])) # GSR
   fightertwo.append(int(trimmed3.group(1)[1:])) # GSR
+
+
   print(fighterone)
   print(fightertwo)
 
     
   fightobj = {'fighter1': fighterone, 'fighter2': fightertwo}
 
-  print(fightobj)
+  # print(fightobj)
 
   return fightobj
 
