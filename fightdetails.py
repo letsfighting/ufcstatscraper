@@ -164,13 +164,20 @@ def fightdetails(url):
     text = str(link.get_text())
     text = text.strip()
     cleanText = text.replace('\n        \n        ','')
+    cleanText = cleanText.replace(' Rnd (5)','')
+    cleanText = cleanText.replace(' Rnd (5-5)','')
     cleanText = cleanText.replace(' Rnd (5-5-5)','')
     cleanText = cleanText.replace(' Rnd (5-5-5-5-5)','')
     cleanText = cleanText.replace(' Rnd + OT (5-5-5-5)','')
     cleanText = cleanText.replace(' Rnd + OT (5-5-5-5-5-5)','')
+    cleanText = cleanText.replace(' Rnd + 2OT (15-3-3)','')
+    cleanText = cleanText.replace(' Rnd + OT (12-3)','')
     cleanText = cleanText.replace('\n        \n\n                                ','')
     cleanText = cleanText.replace(' \n\n            \n            \n            ',':')
     cleanText = cleanText.replace('.','')
+    # if cleanText == 'No Time Limit'
+    #   cleanText =   
+    # print(f"cleanText: {cleanText}")
     details.append((cleanText))
 
   
@@ -208,7 +215,10 @@ def fightdetails(url):
     judge1score = "--"
     judge2score = "--"
     judge3score = "--"
-    round_format = int(re.search("(?s).*?Time format:(.*)", details[2]).group(1))
+    if re.search("(?s).*?Time format:(.*)", details[2]).group(1).isnumeric():
+      round_format = int(re.search("(?s).*?Time format:(.*)", details[2]).group(1))
+    else:
+      round_format = (re.search("(?s).*?Time format:(.*)", details[2]).group(1))
     rounds_total = int(re.search("(?s).*?Round:(.*)", details[0]).group(1))
     # print(method_array2)
     if re.search(r'Details:\s*([^\r\n]+)', method_array2[1]) != None:
@@ -336,7 +346,7 @@ def fightdetails(url):
 
 # end of fightdetails function
 
-# fightdetails("http://ufcstats.com/fight-details/72c3e5eacde4f0e5")
+# fightdetails("http://ufcstats.com/fight-details/17ee4caf06981b81")
 
 
 

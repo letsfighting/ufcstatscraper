@@ -43,17 +43,27 @@ def statsparser(rounds, stats):
   fighterone.append(int(stats[14])) # REV
   fightertwo.append(int(stats[15])) # REV
 
+
+  # print("stats: ", stats)
   # take only everything before :
   trimmed = re.search("^(.*)(?=:)", stats[16])
    # take only everything after :
   seconds = re.search("(?s).*?:(.*)", stats[16])
-  time1 = int(trimmed.group(1)) * 60 + int(seconds.group(1))
+  # print("trimmed: ", trimmed)
+  # print("seconds: ", seconds)
+  if trimmed != None and seconds != None:
+    time1 = int(trimmed.group(1)) * 60 + int(seconds.group(1))
+  else:
+    time1 = 0
   fighterone.append(time1) # CTRL in seconds
 
   # take only everything before :
   trimmed2 = re.search("^(.*)(?=:)", stats[17])
   seconds2 = re.search("(?s).*?:(.*)", stats[17])
-  time2 = int(trimmed2.group(1)) * 60 + int(seconds2.group(1))
+  if trimmed2 != None and seconds2 != None:
+    time2 = int(trimmed2.group(1)) * 60 + int(seconds2.group(1))
+  else:
+    time2 = 0
   fightertwo.append(time2) # CTRL in seconds
   
   x = 18 + 18 * rounds + 4
@@ -180,13 +190,19 @@ def statsparser(rounds, stats):
   trimmed = re.search("^(.*)(?=:)", stats[16])
    # take only everything after :
   seconds = re.search("(?s).*?:(.*)", stats[16])
-  time1 = int(trimmed.group(1)) * 60 + int(seconds.group(1))
+  if trimmed != None and seconds != None:
+    time1 = int(trimmed.group(1)) * 60 + int(seconds.group(1))
+  else:
+    time1 = 0
   fightertwo.append(time1) # CTRLED in seconds
 
   # take only everything before :
   trimmed2 = re.search("^(.*)(?=:)", stats[17])
   seconds2 = re.search("(?s).*?:(.*)", stats[17])
-  time2 = int(trimmed2.group(1)) * 60 + int(seconds2.group(1))
+  if trimmed2 != None and seconds2 != None:
+    time2 = int(trimmed2.group(1)) * 60 + int(seconds2.group(1))
+  else:
+    time2 = 0
   fighterone.append(time2) # CTRLED in seconds
 
 
@@ -284,8 +300,8 @@ def statsparser(rounds, stats):
   fightertwo.append(int(trimmed3.group(1)[1:])) # GSR
 
 
-  print(len(fighterone))
-  print(len(fightertwo))
+  # print(len(fighterone))
+  # print(len(fightertwo))
 
     
   fightobj = {'fighter1': fighterone, 'fighter2': fightertwo}
