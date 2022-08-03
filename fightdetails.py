@@ -41,13 +41,13 @@ def fightstatsfighter(fighturl, fighterlinksArr, fighternamesArr, method, refere
 
   
   fighter1_complete = {'_id': uid1, 'fight_id': fight_id, 'fighter_id': fighter1_id, 'fighter_name': fighter1_name, 'method': method, 'referee': referee, 'detailed_method': detailedmethod, 'rounds_fought': rounds_fought, 'duration': duration, 'outcome': result1, 
-  'KD': fighter1_stats[0], 'SS': fighter1_stats[1], 'SSA':  fighter1_stats[3], 'TD':  fighter1_stats[4], 'TDA':  fighter1_stats[5], 'SUBATT':  fighter1_stats[6], 'REV':  fighter1_stats[7], 'CTRL': fighter1_stats[8], 'HS': fighter1_stats[9], 'HSA': fighter1_stats[10], 
-  'BS': fighter1_stats[11], 'BSA': fighter1_stats[12], 'LS': fighter1_stats[13], 'LSA': fighter1_stats[14], 'DS': fighter1_stats[15], 'DSA': fighter1_stats[16], 'CS': fighter1_stats[17], 'CSA': fighter1_stats[18], 'GS': fighter1_stats[19], 'GSA': fighter1_stats[20], 'Downed': fighter1_stats[20], 'SSD': fighter1_stats[21], 'SSR': fighter1_stats[22], 'TDD': fighter1_stats[23], 'TDR': fighter1_stats[24], 'REVED': fighter1_stats[25], 'CTRLED': fighter1_stats[26], 'HSD': fighter1_stats[27], 'HSR': fighter1_stats[28],
+  'KD': fighter1_stats[0], 'SS': fighter1_stats[1], 'SSA':  fighter1_stats[2], 'TD':  fighter1_stats[3], 'TDA':  fighter1_stats[4], 'SUBATT':  fighter1_stats[5], 'REV':  fighter1_stats[6], 'CTRL': fighter1_stats[7], 'HS': fighter1_stats[8], 'HSA': fighter1_stats[9], 
+  'BS': fighter1_stats[10], 'BSA': fighter1_stats[11], 'LS': fighter1_stats[12], 'LSA': fighter1_stats[13], 'DS': fighter1_stats[14], 'DSA': fighter1_stats[15], 'CS': fighter1_stats[16], 'CSA': fighter1_stats[17], 'GS': fighter1_stats[18], 'GSA': fighter1_stats[19], 'Downed': fighter1_stats[20], 'SSD': fighter1_stats[21], 'SSR': fighter1_stats[22], 'TDD': fighter1_stats[23], 'TDR': fighter1_stats[24], 'REVED': fighter1_stats[25], 'CTRLED': fighter1_stats[26], 'HSD': fighter1_stats[27], 'HSR': fighter1_stats[28],
   'BSD': fighter1_stats[29], 'BSR': fighter1_stats[30], 'LSD': fighter1_stats[31], 'LSR': fighter1_stats[32], 'DSD': fighter1_stats[33], 'DSR': fighter1_stats[34], 'CSD': fighter1_stats[35], 'CSR': fighter1_stats[36], 'GSD': fighter1_stats[37], 'GSR': fighter1_stats[38]}
 
   fighter2_complete = {'_id': uid2, 'fight_id': fight_id, 'fighter_id': fighter2_id, 'fighter_name': fighter2_name, 'method': method, 'referee': referee, 'detailed_method': detailedmethod, 'rounds_fought': rounds_fought, 'duration': duration, 'outcome': result2, 
-  'KD': fighter2_stats[0], 'SS': fighter2_stats[1], 'SSA':  fighter2_stats[3], 'TD':  fighter2_stats[4], 'TDA':  fighter2_stats[5], 'SUBATT':  fighter2_stats[6], 'REV':  fighter2_stats[7], 'CTRL': fighter2_stats[8], 'HS': fighter2_stats[9], 'HSA': fighter2_stats[10], 
-  'BS': fighter2_stats[11], 'BSA': fighter2_stats[12], 'LS': fighter2_stats[13], 'LSA': fighter2_stats[14], 'DS': fighter2_stats[15], 'DSA': fighter2_stats[16], 'CS': fighter2_stats[17], 'CSA': fighter2_stats[18], 'GS': fighter2_stats[19], 'GSA': fighter2_stats[20], 'Downed': fighter2_stats[20], 'SSD': fighter2_stats[21], 'SSR': fighter2_stats[22], 'TDD': fighter2_stats[23], 'TDR': fighter2_stats[24], 'REVED': fighter2_stats[25], 'CTRLED': fighter2_stats[26], 'HSD': fighter2_stats[27], 'HSR': fighter2_stats[28],
+  'KD': fighter2_stats[0], 'SS': fighter2_stats[1], 'SSA':  fighter2_stats[2], 'TD':  fighter2_stats[3], 'TDA':  fighter2_stats[4], 'SUBATT':  fighter2_stats[5], 'REV':  fighter2_stats[6], 'CTRL': fighter2_stats[7], 'HS': fighter2_stats[8], 'HSA': fighter2_stats[9], 
+  'BS': fighter2_stats[10], 'BSA': fighter2_stats[11], 'LS': fighter2_stats[12], 'LSA': fighter2_stats[13], 'DS': fighter2_stats[14], 'DSA': fighter2_stats[15], 'CS': fighter2_stats[16], 'CSA': fighter2_stats[17], 'GS': fighter2_stats[18], 'GSA': fighter2_stats[19], 'Downed': fighter2_stats[20], 'SSD': fighter2_stats[21], 'SSR': fighter2_stats[22], 'TDD': fighter2_stats[23], 'TDR': fighter2_stats[24], 'REVED': fighter2_stats[25], 'CTRLED': fighter2_stats[26], 'HSD': fighter2_stats[27], 'HSR': fighter2_stats[28],
   'BSD': fighter2_stats[29], 'BSR': fighter2_stats[30], 'LSD': fighter2_stats[31], 'LSR': fighter2_stats[32], 'DSD': fighter2_stats[33], 'DSR': fighter2_stats[34], 'CSD': fighter2_stats[35], 'CSR': fighter2_stats[36], 'GSD': fighter2_stats[37], 'GSR': fighter2_stats[38]}
 
   answer = [fighter1_complete, fighter2_complete]
@@ -185,15 +185,15 @@ def fightdetails(url):
 
   
 
-  for item in details:
-    match = re.search("(.+?(?=:))", item)
+  # for item in details:
+  #   match = re.search("(.+?(?=:))", item)
     
-    labels.append(match.group(1))
+  #   labels.append(match.group(1))
     
   for item in details:
     match = re.search(":([\s\S]*)$", item)
-    
-    data.append(match.group(1))
+    if match != None:
+      data.append(match.group(1))
 
   
 
@@ -295,50 +295,46 @@ def fightdetails(url):
 
 
 
-  # print("fight_details: ", fight_details)
-  # print("fight_stats: ", fight_stats)
+  print("fight_details: ", fight_details)
+  print("fight_stats: ", fight_stats)
+
 
 
   fight_stats_fighter = fightstatsfighter(url, fighter_links, fighter_names, method, referee, detailedmethod, rounds_total, duration, outcome, fight_stats)
+  
+  print("fight_stats_fighter: ", fight_stats_fighter)
 
   client = MongoClient()
 
-  client.ufcstats.fightdetails.insert_one(fight_details)
-  client.ufcstats.fightstats.insert_many(fight_stats_fighter)
+
+
+  # client.ufcstats.fightdetails.insert_one(fight_details)
+  # client.ufcstats.fightstats.insert_many(fight_stats_fighter)
 
 # end of fightdetails function
 
+fightdetails("http://ufcstats.com/fight-details/21f79cd40513d075")
 
 
 
 
 
-mclient = MongoClient()
-mclient.ufcstats.fightdetails.drop()
-mclient.ufcstats.fightstats.drop()
-timestart = time.time()
-print("Started at: ", timestart)
-for fight in mclient.ufcstats.fights.find():
-  print("Captured fight: ", fight['url'])
-  fightdetails(fight['url'])
+
+# mclient = MongoClient()
+# mclient.ufcstats.fightdetails.drop()
+# mclient.ufcstats.fightstats.drop()
+# timestart = time.time()
+# print("Started at: ", timestart)
+# for fight in mclient.ufcstats.fights.find():
+#   print("Captured fight: ", fight['url'])
+#   fightdetails(fight['url'])
   
 
-timefinish = time.time()
-timecomplete = timefinish - timestart
-print(f"It took {timecomplete} milliseconds to complete")
+# timefinish = time.time()
+# timecomplete = timefinish - timestart
+# print(f"It took {timecomplete} milliseconds to complete")
 
 
-# for x in range(0, len(fightlinks)):
-
-
-#   fight = {'_id': len(fightlinks)-x, 'url': fightlinks[x]}
-#   fightdata.append(fight)
-#
-
-# # print(fightdata)
-
-# # client.ufcstats.fights.drop()
-# client.ufcstats.fights.insert_many(fightdata)
 
 
 

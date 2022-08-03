@@ -284,8 +284,8 @@ def statsparser(rounds, stats):
   fightertwo.append(int(trimmed3.group(1)[1:])) # GSR
 
 
-  # print(fighterone)
-  # print(fightertwo)
+  print(len(fighterone))
+  print(len(fightertwo))
 
     
   fightobj = {'fighter1': fighterone, 'fighter2': fightertwo}
