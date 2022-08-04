@@ -377,7 +377,7 @@ for fight in mclient.ufcstats.fights.find():
 
 timefinish = time.time()
 timecomplete = timefinish - timestart
-print(f"It took {timecomplete} milliseconds to complete")
+print(f"It took {timecomplete} seconds to complete")
 
 
 
