@@ -1,3 +1,6 @@
+# this script scrapes event pages example: http://ufcstats.com/event-details/4f853e98886283cf
+
+
 import requests
 from bs4 import BeautifulSoup
 import re
@@ -14,8 +17,10 @@ soup = BeautifulSoup(page.content, "html.parser")
 
 
 fightlinks = []
+fightyears = []
 fightdata = []
 fighters = []
+
 
 
 # print(soup)
@@ -38,9 +43,9 @@ fighters = []
 
 
 client = MongoClient()
-
-# delete the last event as it has no fights yet
-client.ufcstats.events.delete_one( {"human_id": 615})
+#
+# # delete the last event as it has no fights yet
+client.ufcstats.events.delete_one( {"human_id": 618})
 
 for event in client.ufcstats.events.find():
   eventpage = requests.get(event['url'])
@@ -57,9 +62,15 @@ for event in client.ufcstats.events.find():
       else:
         print("Appended: ", match.group("url"))
         fightlinks.append((match.group("url")))
-    # if nameMatch is not None:
-    #   fighters.append((text))
 
+        date = soup.find('li', {"class": "b-list__box-list-item"})
+        text2 = str(date.get_text())
+
+        text2 = text2.strip()
+        text2 = re.search("(?s).*?:(.*)", text2)
+        text2 = text2.group(1)[1:]
+        text3 = text2[-4:]
+        fightyears.append(int(text3))
 
 for x in range(0, len(fightlinks)):
 
@@ -69,7 +80,7 @@ for x in range(0, len(fightlinks)):
   #   y += 1
 
   fightid = (re.search("(?s).*?fight-details/(.*)", fightlinks[x])).group(1)
-  fight = {'_id': fightid, 'human_id': len(fightlinks)-x, 'url': fightlinks[x]}
+  fight = {'_id': fightid, 'human_id': len(fightlinks)-x, 'url': fightlinks[x], 'year': fightyears[x]}
   print("Inserted: ", fight)
   fightdata.append(fight)
 
