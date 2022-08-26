@@ -117,7 +117,7 @@ print(fighters)
 
 # print(fightdata)
 
-# client.ufcstats.fighters.drop()
+client.ufcstats.fighters.drop()
 client.ufcstats.fighters.insert_many(fighters)
 
 
