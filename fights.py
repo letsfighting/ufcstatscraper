@@ -15,7 +15,7 @@ page = requests.get(URL)
 
 soup = BeautifulSoup(page.content, "html.parser")
 
-
+fighterlinks = []
 fightlinks = []
 fightyears = []
 fightdata = []
@@ -72,6 +72,18 @@ for event in client.ufcstats.events.find():
         text3 = text2[-4:]
         fightyears.append(int(text3))
 
+
+  for fighterlink in soup.find_all('a', {"class": "b-link_style_black"}):
+    text4 = str(fighterlink.get('href'))
+    match2 = re.search("(?P<url>https?://ufcstats.com/fighter-details/.+)", text4)
+    if match2 is not None:
+      text5 = re.search("(?s).*?https?://ufcstats.com/fighter-details/(.*)", text4)
+      # print("text5: ", text5.group(1)[1:])
+      fighterlinks.append(text5.group(1)[1:])
+
+a = 0
+b = 1
+
 for x in range(0, len(fightlinks)):
 
   # if x == 0:
@@ -79,10 +91,13 @@ for x in range(0, len(fightlinks)):
   # else:
   #   y += 1
 
+
   fightid = (re.search("(?s).*?fight-details/(.*)", fightlinks[x])).group(1)
-  fight = {'_id': fightid, 'human_id': len(fightlinks)-x, 'url': fightlinks[x], 'year': fightyears[x]}
+  fight = {'_id': fightid, 'human_id': len(fightlinks)-x, 'url': fightlinks[x], 'year': fightyears[x], 'fighter1': fighterlinks[a], 'fighter2': fighterlinks[b]}
   print("Inserted: ", fight)
   fightdata.append(fight)
+  a += 2
+  b += 2
 
 
 # print(fightdata)
