@@ -17,6 +17,7 @@ patch_all()
 
 def fightstatsquery(fighterid, year):
     client = MongoClient()
+    totalmatches = 0
     wins = 0
     losses = 0
     draws = 0
@@ -29,7 +30,8 @@ def fightstatsquery(fighterid, year):
     lko = 0
     wsub = 0 
     lsub = 0
-    dq = 0
+    wdq = 0
+    uxoutcome = 0
     rounds_fought = 0
     duration = 0
     KD = 0
@@ -76,6 +78,8 @@ def fightstatsquery(fighterid, year):
 
     for entry in client.ufcstats.fightstats.find({ "fighter_id": fighterid, "year": { "$lt": year }, "stats_available": True }):
         print('entry: ', entry)
+        totalmatches += 1
+
         if entry['outcome'] == 'W':
             wins += 1
             if entry['method'] == 'KO/TKO':
@@ -86,6 +90,80 @@ def fightstatsquery(fighterid, year):
                 wdq += 1
             else:
                 wdec += 1
+        elif entry['outcome'] == 'L':
+            losses += 1
+            if entry['method'] == 'KO/TKO':
+                lko += 1
+            elif entry['method'] == 'Submission':
+                lsub += 1
+            elif entry['method'] == 'DQ':
+                ldq += 1
+            else:
+                ldec += 1
+        elif entry['outcome'] == 'D':
+            draws += 1
+        elif entry['outcome'] == 'NC':
+            ncs += 1
+        else:
+            uxoutcome += 1
+
+        rounds_fought += entry['rounds_fought']
+        duration += entry['duration']
+        KD += entry['KD']
+        SS += entry['SS']
+        SSA += entry['SSA']
+        TD += entry['TD']
+        TDA += entry['TDA']
+        SUBATT += entry['SUBATT']
+        REV += entry['REV']
+        CTRL += entry['CTRL']
+        HS += entry['HS']
+        HSA += entry['HSA']
+        BS += entry['BS']
+        BSA += entry['BSA']
+        LS += entry['LS']
+        LSA += entry['LSA']
+        DS += entry['DS']
+        DSA += entry['DSA']
+        CS += entry['CS']
+        CSA += entry['CSA']
+        GS += entry['GS']
+        GSA += entry['GSA']
+        Downed += entry['Downed']
+        SSD += entry['SSD']
+        SSR += entry['SSR']
+        TDD += entry['TDD']
+        TDR += entry['TDR']
+        REVED += entry['REVED']
+        CTRLED += entry['CTRLED']
+        HSD += entry['HSD']
+        HSR += entry['HSR']
+        BSD += entry['BSD']
+        BSR += entry['BSR']
+        LSD += entry['LSD']
+        LSR += entry['LSR']
+        DSD += entry['DSD']
+        DSR += entry['DSR']
+        CSD += entry['CSD']
+        CSR += entry['CSR']
+        GSD += entry['GSD']
+        GSR += entry['GSR']
+
+    x = client.ufcstats.fighters.find_one({ "_id": fighterid })
+    fightername = x['name']
+    # print('fightername: ', fighterid+str(year))
+    
+    # y = client.ufcstats.fightstats.find_one({ "fighter_id": fighterid, "year": year, "stats_available": True })
+
+    # print('y: ', y)
+
+    if client.ufcstats.fightstats.find_one({ "fighter_id": fighterid, "year": { "$lt": year }, "stats_available": True }) is not None:
+
+        finalentry = {'_id': fighterid + str(year), 'name': fightername, 'year': year, 'totalmatches': totalmatches, 'wins': wins, 'losses': losses, 'draws': draws, 'ncs': ncs, 'wko': wko, 'wdq': wdq, 'wdec': wdec, 'ldq': ldq, 'ldec': ldec, 'lko': lko, 'wsub': wsub, 'lsub': lsub, 'wdq': wdq, 'uxoutcome': uxoutcome, 'rounds_fought': rounds_fought, 'duration': duration, 'KD': KD, 'SS': SS, 'SSA': SSA, 'TD': TD, 'TDA': TDA, 'SUBATT': SUBATT, 'REV': REV, 'CTRL': CTRL, 'HS': HS, 'HSA': HSA, 'BS': BS, 'BSA': BSA, 'LS': LS, 'LSA': LSA, 'DS': DS, 'DSA': DSA, 'CS': CS, 'CSA': CSA, 'GS': GS, 'GSA': GSA, 'Downed': Downed, 'SSD': SSD, 'SSR': SSR, 'TDD': TDD, 'TDR': TDR, 'REVED': REVED, 'CTRLED': CTRLED, 'HSD': HSD, 'HSR': HSR, 'BSD': BSD, 'BSR': BSR, 'LSD': LSD, 'LSR': LSR, 'DSD': DSD, 'DSR': DSR, 'CSD': CSD, 'CSR': CSR, 'GSD': GSD, 'GSR': GSR}    
+        client.ufcstats.cumulativefightstatsbyyear.insert_one(finalentry)
+        print('Entry Inserted for ', fightername, ' in ', year)
+    else:
+        print('No Entry Found for ', fightername, ' in ', year)
             
             
 
@@ -97,10 +175,14 @@ mclient = MongoClient()
 timestart = time.time()
 print("Started at: ", timestart)
 
-# for fighter in mclient.ufcstats.fighters.find():
-#     print("fightername: ", fighter['name'], ", fighterid: ", fighter['_id'])
+mclient.ufcstats.cumulativefightstatsbyyear.drop()
 
-fightstatsquery("cd2c4d30c6e13b47", 2023)
+for fighter in mclient.ufcstats.fighters.find():
+    year = 1994
+    while year < 2023:
+        print("Processing: ", fighter['name'], ", Year: ", year)
+        fightstatsquery(fighter['_id'], year)
+        year += 1
 
 
 timefinish = time.time()
