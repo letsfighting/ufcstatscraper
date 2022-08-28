@@ -76,7 +76,7 @@ def fightstatsquery(fighterid, year):
 
 
 
-    for entry in client.ufcstats.fightstats.find({ "fighter_id": fighterid, "year": { "$lt": year }, "stats_available": True }):
+    for entry in client.ufcstats.allfightstats.find({ "fighter_id": fighterid, "year": { "$lt": year }, "stats_available": True }):
         print('entry: ', entry)
         totalmatches += 1
 
@@ -157,10 +157,10 @@ def fightstatsquery(fighterid, year):
 
     # print('y: ', y)
 
-    if client.ufcstats.fightstats.find_one({ "fighter_id": fighterid, "year": { "$lt": year }, "stats_available": True }) is not None:
+    if client.ufcstats.allfightstats.find_one({ "fighter_id": fighterid, "year": { "$lt": year }, "stats_available": True }) is not None:
 
         finalentry = {'_id': fighterid + str(year-1), 'name': fightername, 'year': year-1, 'totalmatches': totalmatches, 'wins': wins, 'losses': losses, 'draws': draws, 'ncs': ncs, 'wko': wko, 'wdq': wdq, 'wdec': wdec, 'ldq': ldq, 'ldec': ldec, 'lko': lko, 'wsub': wsub, 'lsub': lsub, 'wdq': wdq, 'uxoutcome': uxoutcome, 'rounds_fought': rounds_fought, 'duration': duration, 'KD': KD, 'SS': SS, 'SSA': SSA, 'TD': TD, 'TDA': TDA, 'SUBATT': SUBATT, 'REV': REV, 'CTRL': CTRL, 'HS': HS, 'HSA': HSA, 'BS': BS, 'BSA': BSA, 'LS': LS, 'LSA': LSA, 'DS': DS, 'DSA': DSA, 'CS': CS, 'CSA': CSA, 'GS': GS, 'GSA': GSA, 'Downed': Downed, 'SSD': SSD, 'SSR': SSR, 'TDD': TDD, 'TDR': TDR, 'REVED': REVED, 'CTRLED': CTRLED, 'HSD': HSD, 'HSR': HSR, 'BSD': BSD, 'BSR': BSR, 'LSD': LSD, 'LSR': LSR, 'DSD': DSD, 'DSR': DSR, 'CSD': CSD, 'CSR': CSR, 'GSD': GSD, 'GSR': GSR}    
-        client.ufcstats.cumulativefightstatsbyyear.insert_one(finalentry)
+        client.ufcstats.allcumulativefightstatsbyyear.insert_one(finalentry)
         print('Entry Inserted for ', fightername, ' in ', year)
     else:
         print('No Entry Found for ', fightername, ' in ', year)
@@ -175,7 +175,7 @@ mclient = MongoClient()
 timestart = time.time()
 print("Started at: ", timestart)
 
-mclient.ufcstats.cumulativefightstatsbyyear.drop()
+mclient.ufcstats.allcumulativefightstatsbyyear.drop()
 
 for fighter in mclient.ufcstats.fighters.find():
     year = 1994
