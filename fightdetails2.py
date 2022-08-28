@@ -172,6 +172,8 @@ def fightdetails(url, years):
     cleanText = cleanText.replace(' Rnd + OT (5-5-5-5-5-5)','')
     cleanText = cleanText.replace(' Rnd + 2OT (15-3-3)','')
     cleanText = cleanText.replace(' Rnd (3-3-3)','')
+    cleanText = cleanText.replace(' Rnd (3-3)','')
+    cleanText = cleanText.replace(' Rnd (3)','')
     cleanText = cleanText.replace(' Rnd + OT (3-3-3-3)','')
     cleanText = cleanText.replace(' Rnd (3-3-3-3-3)','')
     cleanText = cleanText.replace(' Rnd + OT (3-3-3-3-3-3)','')
