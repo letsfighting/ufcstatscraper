@@ -177,6 +177,24 @@ def fightdetails(url, years):
     cleanText = cleanText.replace(' Rnd + OT (3-3-3-3)','')
     cleanText = cleanText.replace(' Rnd (3-3-3-3-3)','')
     cleanText = cleanText.replace(' Rnd + OT (3-3-3-3-3-3)','')
+    cleanText = cleanText.replace(' Rnd (2-2-2)','')
+    cleanText = cleanText.replace(' Rnd (2-2)','')
+    cleanText = cleanText.replace(' Rnd (2)','')
+    cleanText = cleanText.replace(' Rnd + OT (2-2-2-2)','')
+    cleanText = cleanText.replace(' Rnd (2-2-2-2-2)','')
+    cleanText = cleanText.replace(' Rnd + OT (2-2-2-2-2-2)','')
+    cleanText = cleanText.replace(' Rnd (1-1-1)','')
+    cleanText = cleanText.replace(' Rnd (1-1)','')
+    cleanText = cleanText.replace(' Rnd (1)','')
+    cleanText = cleanText.replace(' Rnd + OT (1-1-1-1)','')
+    cleanText = cleanText.replace(' Rnd (1-1-1-1-1)','')
+    cleanText = cleanText.replace(' Rnd + OT (1-1-1-1-1-1)','')
+    cleanText = cleanText.replace(' Rnd (4-4-4)','')
+    cleanText = cleanText.replace(' Rnd (4-4)','')
+    cleanText = cleanText.replace(' Rnd (4)','')
+    cleanText = cleanText.replace(' Rnd + OT (4-4-4-4)','')
+    cleanText = cleanText.replace(' Rnd (4-4-4-4-4)','')
+    cleanText = cleanText.replace(' Rnd + OT (4-4-4-4-4-4)','')
     cleanText = cleanText.replace('\n        \n\n                                ','')
     cleanText = cleanText.replace(' \n\n            \n            \n            ',':')
     cleanText = cleanText.replace('.','')
@@ -362,7 +380,7 @@ def fightdetails(url, years):
 
 # end of fightdetails function
 
-# fightdetails("http://ufcstats.com/fight-details/635fbf57001897c7")
+# fightdetails("http://ufcstats.com/fight-details/0167a9d6e4b599eb", 2006)
 
 
 

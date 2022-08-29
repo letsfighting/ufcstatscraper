@@ -161,9 +161,9 @@ def fightstatsquery(fighterid, year):
 
         finalentry = {'_id': fighterid + str(year-1), 'name': fightername, 'year': year-1, 'totalmatches': totalmatches, 'wins': wins, 'losses': losses, 'draws': draws, 'ncs': ncs, 'wko': wko, 'wdq': wdq, 'wdec': wdec, 'ldq': ldq, 'ldec': ldec, 'lko': lko, 'wsub': wsub, 'lsub': lsub, 'wdq': wdq, 'uxoutcome': uxoutcome, 'rounds_fought': rounds_fought, 'duration': duration, 'KD': KD, 'SS': SS, 'SSA': SSA, 'TD': TD, 'TDA': TDA, 'SUBATT': SUBATT, 'REV': REV, 'CTRL': CTRL, 'HS': HS, 'HSA': HSA, 'BS': BS, 'BSA': BSA, 'LS': LS, 'LSA': LSA, 'DS': DS, 'DSA': DSA, 'CS': CS, 'CSA': CSA, 'GS': GS, 'GSA': GSA, 'Downed': Downed, 'SSD': SSD, 'SSR': SSR, 'TDD': TDD, 'TDR': TDR, 'REVED': REVED, 'CTRLED': CTRLED, 'HSD': HSD, 'HSR': HSR, 'BSD': BSD, 'BSR': BSR, 'LSD': LSD, 'LSR': LSR, 'DSD': DSD, 'DSR': DSR, 'CSD': CSD, 'CSR': CSR, 'GSD': GSD, 'GSR': GSR}    
         client.ufcstats.cumulativefightstatsbyyear.insert_one(finalentry)
-        print('Entry Inserted for ', fightername, ' in ', year)
+        print('Entry Inserted for ', fightername, ' in ', year-1)
     else:
-        print('No Entry Found for ', fightername, ' in ', year)
+        print('No Entry Found for ', fightername, ' in ', year-1)
             
             
 
@@ -180,7 +180,7 @@ mclient.ufcstats.cumulativefightstatsbyyear.drop()
 for fighter in mclient.ufcstats.fighters.find():
     year = 1994
     while year < 2023:
-        print("Processing: ", fighter['name'], ", Year: ", year)
+        print("Processing: ", fighter['name'], ", Year: ", year-1)
         fightstatsquery(fighter['_id'], year)
         year += 1
 
