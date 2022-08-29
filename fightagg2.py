@@ -179,7 +179,7 @@ mclient.ufcstats.allcumulativefightstatsbyyear.drop()
 
 for fighter in mclient.ufcstats.fighters.find():
     year = 1994
-    while year < 2023:
+    while year < 2024:
         print("Processing: ", fighter['name'], ", Year: ", year-1)
         fightstatsquery(fighter['_id'], year)
         year += 1
