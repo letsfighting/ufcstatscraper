@@ -31,4 +31,4 @@ def entrymaker(fightid, year, fighter1, fighter2):
   print('profilef2: ',profilef2)
 
 
-entrymaker('b96c8fef6c9f92db', 2010, 'abc6b5745335f18', '757c06bbdba61d2')
+entrymaker('b96c8fef6c9f92db', 2010, 'babc6b5745335f18', 'a757c06bbdba61d2')

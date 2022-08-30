@@ -101,7 +101,7 @@ for x in range(0, len(fightlinks)):
 
 # print(fightdata)
 
-# client.ufcstats.allfights.drop()
+client.ufcstats.allfights.drop()
 client.ufcstats.allfights.insert_many(fightdata)
 
 
