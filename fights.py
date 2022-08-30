@@ -78,8 +78,8 @@ for event in client.ufcstats.events.find():
     match2 = re.search("(?P<url>https?://ufcstats.com/fighter-details/.+)", text4)
     if match2 is not None:
       text5 = re.search("(?s).*?https?://ufcstats.com/fighter-details/(.*)", text4)
-      # print("text5: ", text5.group(1)[1:])
-      fighterlinks.append(text5.group(1)[1:])
+      # print("text5: ", text5.group(1))
+      fighterlinks.append(text5.group(1))
 
 a = 0
 b = 1
