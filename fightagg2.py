@@ -170,21 +170,20 @@ def fightstatsquery(fighterid, year):
 
 
 mclient = MongoClient()
-# mclient.ufcstats.fightdetails.drop()
-# mclient.ufcstats.fightstats.drop()
+
 timestart = time.time()
 print("Started at: ", timestart)
 
 mclient.ufcstats.allcumulativefightstatsbyyear.drop()
 
-# for fighter in mclient.ufcstats.fighters.find():
-#     year = 1993
-#     while year < 2024:
-#         print("Processing: ", fighter['name'], ", Year: ", year-1)
-#         fightstatsquery(fighter['_id'], year)
-#         year += 1
+for fighter in mclient.ufcstats.fighters.find():
+    year = 1993
+    while year < 2024:
+        print("Processing: ", fighter['name'], ", Year: ", year-1)
+        fightstatsquery(fighter['_id'], year)
+        year += 1
 
-fightstatsquery('babc6b5745335f18', 2011)
+# fightstatsquery('babc6b5745335f18', 2011)
 
 
 timefinish = time.time()

@@ -170,8 +170,7 @@ def fightstatsquery(fighterid, year):
 
 
 mclient = MongoClient()
-# mclient.ufcstats.fightdetails.drop()
-# mclient.ufcstats.fightstats.drop()
+
 timestart = time.time()
 print("Started at: ", timestart)
 
