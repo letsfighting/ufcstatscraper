@@ -10,7 +10,7 @@ patch_all()
 
 
 fighters = []
-
+listoffighters = ['http://ufcstats.com/fighter-details/5140122c3eecd307', 'http://ufcstats.com/fighter-details/2f5cbecbbe18bac4', 'http://ufcstats.com/fighter-details/c9f6385af6df66d7' ]
 # print(soup)
 
 
@@ -19,29 +19,9 @@ fighters = []
 client = MongoClient()
 
 #  START
-for fighterlink in client.ufcstats.fighterlinks.find():
-  fighterpage = requests.get(fighterlink['url'])
+for fighterlink in listoffighters:
+  fighterpage = requests.get(fighterlink)
   soup = BeautifulSoup(fighterpage.content, "html.parser")
-
-#   for name in soup.find_all('span', {"class": "b-content__title-highlight"}):
-#     text = str(name.get_text())
-#     text = text.strip()
-#     fightername.append(text)
-
-
-#   for attribute in soup.find_all('li', {"class": "b-list__box-list-item_type_block"}):
-#     text = str(attribute.get_text())
-#     text = text.strip()
-#     fighterstat.append((text))
-
-
-# for fighterlink in client.ufcstats.fighterlinks.find():
-#   fighterpage = requests.get(fighterlink['url'])
-#   soup = BeautifulSoup(fighterpage.content, "html.parser")
-
-# fighterpage = requests.get('http://ufcstats.com/fighter-details/93fe7332d16c6ad9')
-# fighterpage = requests.get('http://ufcstats.com/fighter-details/3329d692aea4dc28')
-# soup = BeautifulSoup(fighterpage.content, "html.parser")
 
 
   fightername = []
@@ -108,7 +88,7 @@ for fighterlink in client.ufcstats.fighterlinks.find():
         fighterstat.append('--')
 
 
-  fighterprofile = {'_id': (re.search("(?s).*?fighter-details/(.*)", fighterlink['url'])).group(1), 'name': fightername[0], 'height': fighterstat[0], 'weight': fighterstat[1], 'reach': fighterstat[2], 'stance': fighterstat[3], 'dob': fighterstat[4]}
+  fighterprofile = {'_id': (re.search("(?s).*?fighter-details/(.*)", fighterlink)).group(1), 'name': fightername[0], 'height': fighterstat[0], 'weight': fighterstat[1], 'reach': fighterstat[2], 'stance': fighterstat[3], 'dob': fighterstat[4]}
 
   fighters.append(fighterprofile)
 
