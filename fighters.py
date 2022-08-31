@@ -62,11 +62,17 @@ for fighterlink in client.ufcstats.fighterlinks.find():
         print("trimmed: " + trimmed.group(1))
         feet = ((trimmed.group(1)[:-5].strip()))
         print("feet: " + feet)
-        inches = ((trimmed.group(1)[-2].strip()))
-        print("inches: " + inches)
-        if feet.isnumeric() and inches.isnumeric():
-          totalheight = (int(feet) * 12 + int(inches))
+        inches1 = str((trimmed.group(1)[-2]))
+
+        inches2 = str((trimmed.group(1)[-3]))
+
+        totalinches = str(inches2 + inches1)
+
+        print("inches: " + str(totalinches))
+        if feet.isnumeric() and totalinches.isnumeric():
+          totalheight = (int(feet) * 12 + int(totalinches))
           fighterstat.append(totalheight)
+          print("totalheight: " + str(totalheight))
         else:
           fighterstat.append(trimmed.group(1).strip())
       else:
