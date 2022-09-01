@@ -83,8 +83,10 @@ for fighterlink in client.ufcstats.fighterlinks.find():
         print("inches: " + inches)
         if feet.isnumeric() and inches.isnumeric():
           totalheight = (int(feet) * 12 + int(inches))
+          print("totalheight: " + str(totalheight))
           fighterstat.append(totalheight)
         else:
+          print("null: " + str(trimmed.group(1).strip()))
           fighterstat.append(trimmed.group(1).strip())
 
     trimmed = re.search("(?s).*Weight:(.*)", text)
