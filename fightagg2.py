@@ -134,6 +134,7 @@ def fightstatsquery(fighterid, year):
         SSR += entry['SSR']
         TDD += entry['TDD']
         TDR += entry['TDR']
+        SUBATTR += entry['SUBATTR']
         REVED += entry['REVED']
         CTRLED += entry['CTRLED']
         HSD += entry['HSD']
@@ -159,7 +160,7 @@ def fightstatsquery(fighterid, year):
 
     if client.ufcstats.allfightstats.find_one({ "fighter_id": fighterid, "year": { "$lt": year }, "stats_available": True }) is not None:
 
-        finalentry = {'_id': fighterid + str(year-1), 'name': fightername, 'year': year-1, 'totalmatches': totalmatches, 'wins': wins, 'losses': losses, 'draws': draws, 'ncs': ncs, 'wko': wko, 'wdq': wdq, 'wdec': wdec, 'ldq': ldq, 'ldec': ldec, 'lko': lko, 'wsub': wsub, 'lsub': lsub, 'wdq': wdq, 'uxoutcome': uxoutcome, 'rounds_fought': rounds_fought, 'duration': duration, 'KD': KD, 'SS': SS, 'SSA': SSA, 'TD': TD, 'TDA': TDA, 'SUBATT': SUBATT, 'REV': REV, 'CTRL': CTRL, 'HS': HS, 'HSA': HSA, 'BS': BS, 'BSA': BSA, 'LS': LS, 'LSA': LSA, 'DS': DS, 'DSA': DSA, 'CS': CS, 'CSA': CSA, 'GS': GS, 'GSA': GSA, 'Downed': Downed, 'SSD': SSD, 'SSR': SSR, 'TDD': TDD, 'TDR': TDR, 'REVED': REVED, 'CTRLED': CTRLED, 'HSD': HSD, 'HSR': HSR, 'BSD': BSD, 'BSR': BSR, 'LSD': LSD, 'LSR': LSR, 'DSD': DSD, 'DSR': DSR, 'CSD': CSD, 'CSR': CSR, 'GSD': GSD, 'GSR': GSR}    
+        finalentry = {'_id': fighterid + str(year-1), 'name': fightername, 'year': year-1, 'totalmatches': totalmatches, 'wins': wins, 'losses': losses, 'draws': draws, 'ncs': ncs, 'wko': wko, 'wdq': wdq, 'wdec': wdec, 'ldq': ldq, 'ldec': ldec, 'lko': lko, 'wsub': wsub, 'lsub': lsub, 'wdq': wdq, 'uxoutcome': uxoutcome, 'rounds_fought': rounds_fought, 'duration': duration, 'KD': KD, 'SS': SS, 'SSA': SSA, 'TD': TD, 'TDA': TDA, 'SUBATT': SUBATT, 'REV': REV, 'CTRL': CTRL, 'HS': HS, 'HSA': HSA, 'BS': BS, 'BSA': BSA, 'LS': LS, 'LSA': LSA, 'DS': DS, 'DSA': DSA, 'CS': CS, 'CSA': CSA, 'GS': GS, 'GSA': GSA, 'Downed': Downed, 'SSD': SSD, 'SSR': SSR, 'TDD': TDD, 'TDR': TDR, 'SUBATT': SUBATT, 'REVED': REVED, 'CTRLED': CTRLED, 'HSD': HSD, 'HSR': HSR, 'BSD': BSD, 'BSR': BSR, 'LSD': LSD, 'LSR': LSR, 'DSD': DSD, 'DSR': DSR, 'CSD': CSD, 'CSR': CSR, 'GSD': GSD, 'GSR': GSR}    
         client.ufcstats.allcumulativefightstatsbyyear.insert_one(finalentry)
         print('Entry Inserted for ', fightername, ' in ', year-1)
     else:

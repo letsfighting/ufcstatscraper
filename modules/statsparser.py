@@ -299,6 +299,9 @@ def statsparser(rounds, stats):
   fighterone.append(int(trimmed4.group(1)[1:])) # GSR
   fightertwo.append(int(trimmed3.group(1)[1:])) # GSR
 
+  fightertwo.append(int(stats[12])) # SUBATTR
+  fighterone.append(int(stats[13])) # SUBATTR
+
 
   # print(len(fighterone))
   # print(len(fightertwo))
