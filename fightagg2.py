@@ -40,6 +40,7 @@ def fightstatsquery(fighterid, year):
     TD = 0
     TDA = 0
     SUBATT = 0
+    SUBATTR = 0
     REV = 0
     CTRL = 0
     HS = 0
