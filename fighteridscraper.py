@@ -87,7 +87,6 @@ client = MongoClient()
 client.ufcstats.fighterlinks.drop()
 client.ufcstats.fighterlinks.insert_many(fighterdata)
 
-
  #
 # for event in eventlinks:
 #   eventpage = requests.get(event)
