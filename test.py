@@ -19,7 +19,6 @@ fightlinks = []
 fightdata = []
 fighters = []
 
-
 # print(soup)
 
 for link in soup.find_all('a'):
