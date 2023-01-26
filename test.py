@@ -6,7 +6,6 @@ from pymongoarrow.monkey import patch_all
 from pymongo import MongoClient
 
 patch_all()
-
 URL = "http://ufcstats.com/event-details/eb42d4febfafefd1"
 page = requests.get(URL)
 
