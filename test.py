@@ -15,6 +15,7 @@ eventlinks = []
 eventnames = []
 eventdata = []
 
+
 fightlinks = []
 fightdata = []
 fighters = []
