@@ -9,7 +9,7 @@ patch_all()
 URL = "http://ufcstats.com/event-details/eb42d4febfafefd1"
 page = requests.get(URL)
 
-soup = BeautifulSoup(page.content, "html.parser")
+soup = BeautifuSoup(page.content, "html.parser")
 data = []
 eventlinks = []
 eventnames = []
