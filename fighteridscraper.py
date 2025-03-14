@@ -13,6 +13,7 @@ URL = f"http://ufcstats.com/statistics/fighters?char={x[y]}&page=all"
 
 
 
+
 fighterlinks = []
 fighterdata = []
 
