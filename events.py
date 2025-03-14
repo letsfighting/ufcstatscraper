@@ -18,7 +18,6 @@ eventdata = []
 
 fightlinks = []
 
-//
 
 
 for link in soup.find_all('a'):
